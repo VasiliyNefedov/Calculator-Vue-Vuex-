@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="total">заглушка</div>
+    <div class="total"><span>{{getTotalString}}</span></div>
     <div class="current"><span>{{ getCurrentValue }}</span></div>
   </div>
 </template>
@@ -10,14 +10,15 @@ import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: "Screen",
-  computed: mapGetters(['getCurrentValue']),
+  computed: mapGetters(['getCurrentValue', 'getTotalString']),
   methods: mapActions([]),
 }
 </script>
 
 <style scoped>
 .total {
-  font-size: 24pt;
+  margin-right: 10px;
+  font-size: 32pt;
   text-align: right;
   color: #2c3e50;
 }

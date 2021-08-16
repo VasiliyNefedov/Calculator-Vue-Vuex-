@@ -4,23 +4,23 @@
       <Screen class="screen"/>
       <AuxiliaryButton :text="'AC'" class="butt"/>
       <AuxiliaryButton :text="'CE'" class="butt"/>
-      <MathButton :value="'+/-'" class="butt"/>
-      <MathButton :value="'/'" class="butt"/>
+      <MathButton :mathAction="'+/-'" class="butt"/>
+      <MathButton :mathAction="'/'" class="butt"/>
       <NumberButton :number="7" class="butt"/>
       <NumberButton :number="8" class="butt"/>
       <NumberButton :number="9" class="butt"/>
-      <MathButton :value="'*'" class="butt"/>
+      <MathButton :mathAction="'*'" class="butt"/>
       <NumberButton :number="4" class="butt"/>
       <NumberButton :number="5" class="butt"/>
       <NumberButton :number="6" class="butt"/>
-      <MathButton :value="'-'" class="butt"/>
+      <MathButton :mathAction="'-'" class="butt"/>
       <NumberButton :number="1" class="butt"/>
       <NumberButton :number="2" class="butt"/>
       <NumberButton :number="3" class="butt"/>
-      <MathButton :value="'+'" class="butt"/>
+      <MathButton :mathAction="'+'" class="butt"/>
       <NumberButton :number="0" class="butt"/>
       <NumberButton :number="','" class="butt"/>
-      <MathButton :value="'='" class="butt equal"/>
+      <MathButton :mathAction="'='" class="butt equal"/>
     </div>
   </div>
 </template>

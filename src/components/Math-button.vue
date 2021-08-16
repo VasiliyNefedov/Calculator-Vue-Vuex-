@@ -1,16 +1,18 @@
 <template>
-  <div>{{ value }}</div>
+  <div @click="buttonClicked">{{ mathAction }}</div>
 </template>
 
 <script>
-import {mapActions, mapMutations} from "vuex";
+import {mapActions} from "vuex";
 
 export default {
   name: "Math-button",
-  props: ['value'],
+  props: ['mathAction'],
   methods: {
-    ...mapActions([]),
-    ...mapMutations(['setCurrentValue'])
+    ...mapActions(['pressMathAction']),
+    buttonClicked() {
+      this.pressMathAction(this.mathAction)
+    }
   },
 }
 </script>

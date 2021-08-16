@@ -13,11 +13,6 @@ export default {
     buttonClicked() {
       this.pushNumber(this.number)
     }
-  },
-  data() {
-    return {
-
-    }
   }
 }
 
