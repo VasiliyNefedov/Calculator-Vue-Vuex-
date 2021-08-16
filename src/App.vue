@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div class="wrapper">
-      <AuxiliaryButton :text="'AC'" class="butt"></AuxiliaryButton>
+    <div class="button-wrapper">
+      <Screen class="screen"/>
+      <AuxiliaryButton :text="'AC'" class="butt"/>
       <AuxiliaryButton :text="'CE'" class="butt"/>
       <MathButton :value="'+/-'" class="butt"/>
       <MathButton :value="'/'" class="butt"/>
@@ -29,9 +30,12 @@
 import NumberButton from "./components/Number-button";
 import AuxiliaryButton from "./components/Auxiliary-button";
 import MathButton from "./components/Math-button";
+import Screen from "./components/Screen";
+
 export default {
   name: 'App',
   components: {
+    Screen,
     MathButton,
     AuxiliaryButton,
     NumberButton
@@ -49,7 +53,8 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-.wrapper {
+
+.button-wrapper {
   margin: auto;
   width: 85%;
   max-width: 900px;
@@ -59,19 +64,29 @@ export default {
   grid-auto-rows: minmax(100px, 100px);
   grid-auto-columns: minmax(100px, 100px);
 }
-.butt {
+
+.butt, .screen {
   min-width: 130px;
   font-size: 64pt;
   color: #0037de;
   border: 3px solid #ccc;
   border-radius: 20px;
   background: rgba(212, 212, 212, 0.48);
+  cursor: pointer;
 }
+
 .butt:hover {
   transition: 0.15s ease-in-out;
   background: #ffce34;
 }
+
 .equal {
   grid-column: 3 / 5;
+}
+
+.screen {
+  background: whitesmoke;
+  grid-column: 1 / 5;
+  grid-row: 1 / 3;
 }
 </style>
