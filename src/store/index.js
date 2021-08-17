@@ -1,18 +1,23 @@
 import {createStore} from 'vuex'
-import math from "mathjs";
+// import math from "mathjs";
+import {create, all} from 'mathjs'
+
+const math = create(all)
 
 export default createStore({
     state: {
         currentValue: '0',
-        totalString: '',
-        numA: null,
-        result: 0
+        previousValue: '',
+        result: false,
+        previousAction: ''
     },
     mutations: {
         setCurrentValue(state, value) {
             if (state.currentValue === '0') state.currentValue = ''
-            if ((state.currentValue.includes(',') && value === ',') || state.currentValue.length > 8) {
-                return
+            if ((String(state.currentValue).includes('.') && value === '.') || state.currentValue.length > 8) return
+            if (state.result) {
+                state.currentValue = ''
+                state.result = false
             }
             state.currentValue += value
         },
@@ -24,33 +29,41 @@ export default createStore({
         },
         setAC(state) {
             state.currentValue = '0'
-            state.totalString = ''
+            state.previousValue = ''
             state.result = 0
-            state.numA = null
         },
-        setTotalString(state, action) {
+        setPreviousValue(state, action) {
             // const variable = state.totalString + ' ' + state.currentValue
-            state.totalString = state.totalString + ' ' + state.currentValue + ' ' + action
-            state.currentValue = '0'
+            if (state.previousValue === '') {
+                state.previousValue = state.currentValue
+                state.currentValue = '0'
+            } else {
+                state.previousValue = math.evaluate(state.previousValue + state.previousAction + state.currentValue)
+                state.currentValue = '0'
+            }
+            state.previousAction = action
         },
         setResult(state) {
-            const variable = state.totalString + ' ' + state.currentValue
-            console.log(math)
-            state.result = math.evaluate(variable)
-            state.currentValue = state.result
-            state.totalString = ''
+            state.currentValue = math.evaluate(state.previousValue + state.previousAction + state.currentValue)
+            if (state.currentValue === Infinity) state.currentValue = 'ERROR'
+            state.result = true
+            state.previousValue = ''
         },
+        negateCurrentValue(state) {
+            state.currentValue = math.evaluate(state.currentValue + ' * (-1)')
+        }
     },
     actions: {
         pushNumber(ctx, number) {
+            if (number === ',') number = '.'
             ctx.commit('setCurrentValue', number)
         },
         pressMathAction(ctx, action) {
             if (action === '=') {
-
                 ctx.commit('setResult')
-            }
-            else ctx.commit('setTotalString', action)
+            } else if (action === '+/-') {
+                ctx.commit('negateCurrentValue')
+            } else ctx.commit('setPreviousValue', action)
         },
         clean(ctx, cleanType) {
             if (cleanType === 'CE') ctx.commit('setCE')
@@ -63,7 +76,7 @@ export default createStore({
             return state.currentValue
         },
         getTotalString(state) {
-            return state.totalString
+            return state.previousValue
         },
     },
     modules: {}
